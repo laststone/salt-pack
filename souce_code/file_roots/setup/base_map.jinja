@@ -1,0 +1,26 @@
+{% set build_dest = pillar.get('build_dest', '/srv/pkgs') %}
+{% set build_runas = pillar.get('build_runas', 'builder') %}
+{% set build_py3 = pillar.get('build_py3', False) %}
+
+# branch build version
+{% set build_version = pillar.get('build_version', '') %}
+
+{% if build_version == '' %}
+{% set amazon_pkg = 'amazon_pkg' %}
+{% set redhat_pkg = 'redhat_pkg' %}
+{% set debian_pkg = 'debian_pkg' %}
+{% set ubuntu_pkg = 'ubuntu_pkg' %}
+{% else %}
+{% set amazon_pkg = 'versions.' ~ build_version ~ '.amazon_pkg' %}
+{% set redhat_pkg = 'versions.' ~ build_version ~ '.redhat_pkg' %}
+{% set debian_pkg = 'versions.' ~ build_version ~ '.debian_pkg' %}
+{% set ubuntu_pkg = 'versions.' ~ build_version ~ '.ubuntu_pkg' %}
+{% endif %}
+
+
+# repo sign timeout for signing packages
+{% set repo_sign_timeout = 100.0 %}
+
+# repo use of passphrases when signing
+{% set repo_use_passphrase = True %}
+
